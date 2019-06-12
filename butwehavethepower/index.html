@@ -14,7 +14,9 @@
 <div id="lyrics"></div>
 
 <script>
+	//create an array for the lyrics
 	words = [
+	" ",
 	"Lisa:",
 	"Come gather round, children",
 	"It's high time ye learned",
@@ -29,7 +31,6 @@
 	"So we'll march day and night",
 	"By the big cooling tower.",
 	"They have the plant",
-	" ",
 	"But we have the power.",
 	" ",
 	"Lenny:",
@@ -38,44 +39,32 @@
 	"So we'll march day and night",
 	"By the big cooling tower.",
 	"They have the plant",
-	" ",
-	"But we have the power."];
+	"But we have the power.",
+	"So we'll march day and night",
+	"By the big cooling tower.",
+	"They have the plant",
+	"But we have the power.",
+	" "];
 
-	
+	//create an array for the time in seconds when each line of lyrics start
+	lyricStart = [5, 6, 9, 11, 14, 16, 18, 19, 21, 23, 26, 37, 40, 43, 45, 49, 52, 53, 56, 72, 75, 78, 80, 82, 84, 87, 89, 91];
 
-	function sleep(milliseconds) {
-  		var start = new Date().getTime();
-  		for (var i = 0; i < 1e7; i++) {
-    		if ((new Date().getTime() - start) > milliseconds){
-      		break;
-      		console.log("in sleep function")
-    		}
-  		}
-	}
 
 	function displayLyrics(){
 		var lyrics = document.getElementById("lyrics"); 
-		var i = 0; 
 		const videoPlayer = document.getElementById("butwehavethepower");
-		i = Math.floor (videoPlayer.currentTime);
-		if(i < 6 || i > 90){
-			return;
+		var secs = Math.floor (videoPlayer.currentTime);
+		//iterate through the times an print the line for the elasped time
+		for (var i = 0; i < 28; i++){
+			if(secs < lyricStart[i]){
+				lyrics.innerHTML = words[i++]; 
+				break;
+			}	
 		}
-		i = Math.floor ((i - 6)/3.3);
-		if(i > 24){
-			i = 24;
-		}
-		lyrics.innerHTML = words[i++]; 
-		console.log("printing line  " + i);		
 	}
-
 	
 	document.getElementById("butwehavethepower").addEventListener("timeupdate",displayLyrics, false);
 
-
-	
-
-	
 
 </script>
 </body>
