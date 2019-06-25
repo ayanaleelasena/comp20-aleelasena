@@ -21,7 +21,7 @@ function initMap() {
       //make the http request to get car positions
       var request;
       request = new XMLHttpRequest();
-      request.open("POST", "https://hans-moleman.herokuapp.com/rides", true);
+      request.open("POST", "https://limitless-meadow-84931.herokuapp.com/rides", true);
       request.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); 
 
       //call back function to recieve the car details and draw the cars 
@@ -68,19 +68,21 @@ function initMap() {
              });
 
              //create the polyline from my marker to the nearest car
-             var carPath = [
-                {lat: position.coords.latitude, lng: position.coords.longitude},
-                {lat: data[closestCar]["lat"], lng: data[closestCar]["lng"]}
-             ];
-             var carLine = new google.maps.Polyline({
-                path: carPath,
-                geodesic: true,
-                strokeColor: '#00BFFF',  //draw the line in sky blue
-                strokeOpacity: 1.0,
-                strokeWeight: 2
-            });
+             if(data.length > 0){
+                   var carPath = [
+                      {lat: position.coords.latitude, lng: position.coords.longitude},
+                      {lat: data[closestCar]["lat"], lng: data[closestCar]["lng"]}
+                   ];
+                   var carLine = new google.maps.Polyline({
+                      path: carPath,
+                      geodesic: true,
+                      strokeColor: '#00BFFF',  //draw the line in sky blue
+                      strokeOpacity: 1.0,
+                      strokeWeight: 2
+                  });
 
-            carLine.setMap(map);
+                  carLine.setMap(map);
+             }
         }
       }
       //make the http post call to get an array of all of the car locations
